@@ -22,14 +22,14 @@ namespace DentalClinic.API.Controllers
         [HttpGet]
         public List<Client> Get()
         {
-            return _context.Clients;
+            return _context.Clients.ToList();
         }
 
         // GET api/<Client>/5
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            Client client = _context.Clients.Find(c => c.Id == id);
+            Client client = _context.Clients.ToList().Find(c=> c.Id == id); 
             if (client != null)
                 return Ok(client);
             return NotFound($"no client with {id} id");
