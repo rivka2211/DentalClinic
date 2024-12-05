@@ -1,4 +1,5 @@
 ﻿using DentalClinic.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace DentalClinic.Core.Repositories
 {
     public interface IWorkerRepository
     {
-        List<Worker> GetAll();
+        DbSet<Worker> GetAll();
 
     }
 }

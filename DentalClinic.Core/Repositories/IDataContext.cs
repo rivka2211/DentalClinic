@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DentalClinic.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DentalClinic.Core.Repositories
 {
     public interface IDataContext
     {
-        List<Client> Clients { get; set; }
-        List<Room> Rooms { get; set; }
-        List<Worker> Workers { get; set; }
-        List<Appointment> Appointments { get; set; }
+        DbSet<Client> Clients { get; set; }
+        DbSet<Room> Rooms { get; set; }
+        DbSet<Worker> Workers { get; set; }
+        DbSet<Appointment> Appointments { get; set; }
     }
 }

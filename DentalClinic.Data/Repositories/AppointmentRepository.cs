@@ -18,11 +18,11 @@ namespace DentalClinic.Data.Repositories
         }
         public List<Appointment> GetAll()
         {
-            return _context.Appointments;
+            return _context.Appointments.ToList();
         }
         public IEnumerable<Appointment> GetByCode(int code)
         {
-            Appointment a = _context.Appointments.Find(c => c.Code == code);
+            Appointment a = _context.Appointments.ToList().Find(c => c.Code == code);
             yield return a;
         }
         public IEnumerable<Appointment> GetByClient(Client client)

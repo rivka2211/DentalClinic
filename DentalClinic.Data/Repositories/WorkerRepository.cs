@@ -18,7 +18,7 @@ namespace DentalClinic.Data.Repositories
         }
         public List<Worker> GetAll()
         {
-            return _context.Workers;
+            return _context.Workers.ToList();
         }
     }
 }

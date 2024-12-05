@@ -15,7 +15,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-builder.Services.AddSingleton<IDataContext, DataContext>();
+builder.Services.AddDbContext<IDataContext,DataContext>();
+//builder.Services.AddSingleton< DataContext>();
 
 var app = builder.Build();
 

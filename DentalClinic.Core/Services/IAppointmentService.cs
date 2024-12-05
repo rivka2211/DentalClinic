@@ -1,4 +1,5 @@
 ﻿using DentalClinic.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace DentalClinic.Core.Services
 {
     public interface IAppointmentService
     {
-        List<Appointment> GetAll();
+        DbSet<Appointment> GetAll();
         IEnumerable<Appointment> GetByCode(int code);
         IEnumerable<Appointment> GetByClient(Client client);
       IEnumerable<Appointment> GetByWorker(Worker worker);

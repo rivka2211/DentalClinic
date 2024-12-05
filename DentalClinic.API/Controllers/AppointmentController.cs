@@ -3,6 +3,7 @@ using DentalClinic.Core.Entities;
 using DentalClinic.Core.Repositories;
 using DentalClinic.Core.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -22,7 +23,7 @@ namespace DentalClinic.API.Controllers
 
         // GET: api/<AppointmentController>
         [HttpGet]
-        public List<Appointment> Get()
+        public DbSet<Appointment> Get()
         {
             return _appointmentService.GetAll();
         }
