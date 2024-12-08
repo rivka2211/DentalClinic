@@ -1,0 +1,7 @@
+C:\Users\user1\Documents\רבקי_תכנות\.net core\חדש\DentalClinic\DentalClinicTesting\bin\Debug\net8.0\CoverletSourceRootsMapping_DentalClinicTesting
+C:\Users\user1\Documents\רבקי_תכנות\.net core\חדש\DentalClinic\DentalClinicTesting\obj\Debug\net8.0\DentalClinicTesting.csproj.AssemblyReference.cache
+C:\Users\user1\Documents\רבקי_תכנות\.net core\חדש\DentalClinic\DentalClinicTesting\obj\Debug\net8.0\DentalClinicTesting.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user1\Documents\רבקי_תכנות\.net core\חדש\DentalClinic\DentalClinicTesting\obj\Debug\net8.0\DentalClinicTesting.AssemblyInfoInputs.cache
+C:\Users\user1\Documents\רבקי_תכנות\.net core\חדש\DentalClinic\DentalClinicTesting\obj\Debug\net8.0\DentalClinicTesting.AssemblyInfo.cs
+C:\Users\user1\Documents\רבקי_תכנות\.net core\חדש\DentalClinic\DentalClinicTesting\obj\Debug\net8.0\DentalClinicTesting.csproj.CoreCompileInputs.cache
+C:\Users\user1\Documents\רבקי_תכנות\.net core\חדש\DentalClinic\DentalClinicTesting\obj\Debug\net8.0\DentalClinicTesting.sourcelink.json
