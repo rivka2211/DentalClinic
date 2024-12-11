@@ -1,4 +1,6 @@
-﻿namespace DentalClinic.Core.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DentalClinic.Core.Entities
 {
     public enum ProfessionsEnum
     {
@@ -6,6 +8,7 @@
     }
     public class Worker
     {
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public ProfessionsEnum Profession { get; set; }
@@ -47,3 +50,4 @@
         }
     }
 }
+

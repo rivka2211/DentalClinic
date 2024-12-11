@@ -1,6 +1,7 @@
 ﻿using DentalClinic.Core.Entities;
 using DentalClinic.Core.Repositories;
 using DentalClinic.Core.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,13 @@ namespace DentalClinic.Service
         {
             _appointmentRepository = appointmentRepository;
         }
-        public List<Appointment> GetAll()
+        public DbSet<Appointment> GetAll()
         {
             return _appointmentRepository.GetAll();
         }
-        public IEnumerable<Appointment> GetByCode(int code)
+        public IEnumerable<Appointment> GetByid(int id)
         {
-            return _appointmentRepository.GetByCode(code);
+            return _appointmentRepository.GetByid(id);
         }
         public IEnumerable<Appointment> GetByClient(Client client)
         {
@@ -32,6 +33,18 @@ namespace DentalClinic.Service
         public IEnumerable<Appointment> GetByWorker(Worker worker)
         {
             return _appointmentRepository.GetByWorker(worker);
+        }
+        public Task<bool> Post(Appointment appointment)
+        {
+            return _appointmentRepository.Post(appointment);
+        }
+        public Task<bool> Put(int id, Appointment appointment)
+        {
+            return _appointmentRepository.Put(id,appointment);
+        }
+        public Task<bool> Delete(int id)
+        {
+            return _appointmentRepository.Delete(id);
         }
 
 

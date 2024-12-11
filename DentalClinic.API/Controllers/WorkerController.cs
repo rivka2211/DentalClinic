@@ -1,7 +1,9 @@
 ﻿using DentalClinic.Core.Entities;
 using DentalClinic.Core.Repositories;
 using DentalClinic.Core.Services;
+using DentalClinic.Service;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Net;
 using System.Xml.Linq;
@@ -22,57 +24,61 @@ namespace DentalClinic.API.Controllers
             _workerService = workerService;
         }
 
-        //private readonly IDataContext _context;
-
-        //public WorkerController(IDataContext data)
-        //{
-        //    _context = data;
-        //}
         // GET: api/<WorkerController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public DbSet<Worker> Get()
         {
-            yield return _workerService.ToString();
+            return _workerService.GetAll();
         }
 
-       /* // GET api/<WorkerController>/5
+        // GET api/<WorkerController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult Get(int id)
         {
-            return _context.Workers.FirstOrDefault(w => w.Id == id, _context.Workers.First()).ToString();
+            var a = _workerService.GetById(id);
+            if (a == null)
+                return NotFound();
+            return Ok(a);
         }
 
         //GET by Profession
         [HttpGet("{profession}")]
-        public string Get(ProfessionsEnum profession)
+        public ActionResult Get(ProfessionsEnum profession)
         {
-            return _context.Workers.All(w => w.Profession == profession).ToString();
+            var a = _workerService.GetByProfession(profession);
+            if (a == null)
+                return NotFound();
+            return Ok(a);
         }
 
         // POST api/<WorkerController>
         [HttpPost]
-        public void Post([FromBody] Worker w)
+        public ActionResult Post([FromBody] Worker w)
         {
-            _context.Workers.Add(new Worker(w.Id, w.Name, w.Profession, w.Address, w.Salary));
+            Task<bool> b = _workerService.Post(w);
+            if (b.IsCompletedSuccessfully)
+                return Created("The object was successfully added", w);
+            return BadRequest("try again");
         }
 
         // PUT api/<WorkerController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Worker w)
+        public ActionResult Put(int id, [FromBody] Worker w)
         {
-            Worker worker = _context.Workers.FirstOrDefault(w => w.Id == id);
-            worker.Id = w.Id;
-            worker.Name = w.Name;
-            worker.Profession = w.Profession;
-            worker.Address = w.Address;
-            worker.Salary = w.Salary;
+            Task<bool> b = _workerService.Put(id, w);
+            if (b.IsCompletedSuccessfully)
+                return Created("The object was successfully added", w);
+            return BadRequest("try again");
         }
 
         // DELETE api/<WorkerController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
-            _context.Workers.Remove(_context.Workers.FirstOrDefault(w => w.Id == id));
-        }*/
+            Task<bool> b = _workerService.Delete(id);
+            if (b.IsCompletedSuccessfully)
+                return Ok("The object has been successfully deleted");
+            return NotFound("The object was not found or could not be deleted");
+        }
     }
 }

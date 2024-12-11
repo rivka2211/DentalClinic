@@ -1,4 +1,6 @@
-﻿namespace DentalClinic.Core.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DentalClinic.Core.Entities
 {
     public enum SuitableEnum
     {
@@ -9,7 +11,8 @@
     {
         public int Floor { get; set; }
         public int Number { get; set; }
-        public int Id { get { return Floor * 100 + Number; } }
+        [Key]
+        public int Id { get; set; }
         public SuitableEnum Suitable { get; set; }
 
         public Room()

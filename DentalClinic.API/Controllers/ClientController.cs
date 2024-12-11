@@ -1,7 +1,10 @@
 ﻿using DentalClinic.Core.Entities;
 using DentalClinic.Core.Repositories;
+using DentalClinic.Core.Services;
+using DentalClinic.Service;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,62 +15,66 @@ namespace DentalClinic.API.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private readonly IDataContext _context;
-        public ClientController(IDataContext data)
+        private readonly IClientService _clientService;
+        public ClientController(IClientService clientService)
         {
-            _context = data;
+            _clientService = clientService;
         }
 
         // GET: api/<Client>
         [HttpGet]
-        public List<Client> Get()
+        public DbSet<Client> Get()
         {
-            return _context.Clients.ToList();
+            return _clientService.GetAll();
         }
 
         // GET api/<Client>/5
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            Client client = _context.Clients.ToList().Find(c=> c.Id == id); 
-            if (client != null)
-                return Ok(client);
-            return NotFound($"no client with {id} id");
+            var a = _clientService.GetById(id);
+            if (a == null)
+                return NotFound();
+            return Ok(a);
         }
 
         //GET by medicalInsurance
         [HttpGet("{medicalInsurance}")]
         public ActionResult Get(MedicalInsuranceEnum medicalInsurance)
         {
-            List<Client> clients = _context.Clients.Where(c => c.MedicalInsurance == medicalInsurance).ToList();
-            if (clients != null)
-                return Ok(clients);
-            return NotFound($"no client with {medicalInsurance} medicalInsurance");
+            var a = _clientService.GetByMedicalInsurance(medicalInsurance);
+            if (a == null)
+                return NotFound();
+            return Ok(a);
         }
         // POST api/<Client>
         [HttpPost]
-        public void Post([FromBody] Client c)
+        public ActionResult Post([FromBody] Client c)
         {
-            _context.Clients.Add(new Client(c.Id, c.Name, c.Address, c.MedicalInsurance, c.BirthDate));
+            Task<bool> b = _clientService.Post(c);
+            if (b.IsCompletedSuccessfully)
+                return Created("The object was successfully added", c);
+            return BadRequest("try again");
         }
 
         // PUT api/<Client>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Client c)
+        public ActionResult Put(int id, [FromBody] Client c)
         {
-            Client client = _context.Clients.FirstOrDefault(c => c.Id == id);
-            client.Id = c.Id;
-            client.Name = c.Name;
-            client.Address = c.Address;
-            client.MedicalInsurance = c.MedicalInsurance;
-            client.BirthDate = c.BirthDate;
+            Task<bool> b = _clientService.Put(id, c);
+            if (b.IsCompletedSuccessfully)
+                return Created("The object was successfully added", c);
+            return BadRequest("try again");
         }
 
         // DELETE api/<Client>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
-            _context.Clients.Remove(_context.Clients.FirstOrDefault(c => c.Id == id));
+            Task<bool> b = _clientService.Delete(id);
+            if (b.IsCompletedSuccessfully)
+                return Ok("The object has been successfully deleted");
+            return NotFound("The object was not found or could not be deleted");
         }
     }
 }

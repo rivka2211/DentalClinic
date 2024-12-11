@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DentalClinic.Core.Entities;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,14 @@ using System.Threading.Tasks;
 
 namespace DentalClinic.Core.Repositories
 {
-    internal interface IClientRepository
+    public interface IClientRepository
     {
+        DbSet<Client> GetAll();
+
+        IEnumerable<Client> GetById(int id);
+        IEnumerable<Client> GetByMedicalInsurance(MedicalInsuranceEnum medicalInsurance);
+        Task<bool> Post(Client client);
+        Task<bool> Put(int Id, Client client);
+        Task<bool> Delete(int id);
     }
 }

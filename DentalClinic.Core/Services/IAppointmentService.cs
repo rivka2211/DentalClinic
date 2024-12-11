@@ -11,12 +11,12 @@ namespace DentalClinic.Core.Services
     public interface IAppointmentService
     {
         DbSet<Appointment> GetAll();
-        IEnumerable<Appointment> GetByCode(int code);
+        IEnumerable<Appointment> GetByid(int id);
         IEnumerable<Appointment> GetByClient(Client client);
-      IEnumerable<Appointment> GetByWorker(Worker worker);
-      /*IEnumerable<string> Post(Appointment appointment);
-      IEnumerable<string> Put(int code, Appointment appointment);
-      IEnumerable<string> Delete(int code);*/
+        IEnumerable<Appointment> GetByWorker(Worker worker);
+        Task<bool> Post(Appointment appointment);
+        Task<bool> Put(int id, Appointment appointment);
+        Task<bool> Delete(int id);
     }
 
 }

@@ -18,7 +18,7 @@ namespace DentalClinic.API.Controllers
 
         public AppointmentController(IAppointmentService appointmentService)
         {
-            _appointmentService=appointmentService;
+            _appointmentService = appointmentService;
         }
 
         // GET: api/<AppointmentController>
@@ -27,34 +27,34 @@ namespace DentalClinic.API.Controllers
         {
             return _appointmentService.GetAll();
         }
-        
+
         // GET api/<AppointmentController>/5
-        [HttpGet("/code/{code}")]
-        public ActionResult Get(int code)
+        [HttpGet("/id/{id}")]
+        public ActionResult Get(int id)
         {
-            var a = _appointmentService.GetByCode(code);
+            var a = _appointmentService.GetByid(id);
             if (a == null)
                 return NotFound();
             return Ok(a);
         }
 
         [HttpGet("{client}")]
-        public ActionResult Get([FromBody]Client client)
+        public ActionResult Get([FromBody] Client client)
         {
-           var a = _appointmentService.GetByClient(client);
+            var a = _appointmentService.GetByClient(client);
             if (a == null)
                 return NotFound();
             return Ok(a);
         }
         [HttpGet("{worker}")]
-        public ActionResult Get([FromBody]Worker worker)
+        public ActionResult Get([FromBody] Worker worker)
         {
             var a = _appointmentService.GetByWorker(worker);
             if (a == null)
                 return NotFound();
             return Ok(a);
         }
-       /* */
+        /* */
         /*//[HttpGet("{options}")]
         //public ActionResult Get( DateOnly? date, TimeOnly? time, [FromBody] Room? room)
         //{
@@ -79,43 +79,38 @@ namespace DentalClinic.API.Controllers
         //        return NotFound("did not found an object that fit in all" + s + "\b");
         //    Console.WriteLine("search of all this: " + s + "\b");
         //    return Ok(ap);
-        //}
+        //}*/
 
         // POST api/<AppointmentController>
         [HttpPost]
         public ActionResult Post([FromBody] Appointment ap)
         {
-            _context.Appointments.Add(new Appointment(ap.Date, ap.Time, ap.Worker, ap.Client, ap.Room, ap.Duration, ap.FirstAid));
-            return Ok("The object was successfully added");
+            Task<bool> b = _appointmentService.Post(ap);
+            if (b.IsCompletedSuccessfully)
+                return Created("The object was successfully added", ap);
+            return BadRequest("try again");
         }
 
         // PUT api/<AppointmentController>/5
-        [HttpPut("{code}")]
-        public ActionResult Put(int code, [FromBody] Appointment value)
+        [HttpPut("{id}")]
+        public ActionResult Put(int id, [FromBody] Appointment value)
         {
-            var ap = _context.Appointments.Find(c => c.Code == code);
-            if (ap == null)
-                return NotFound();
-            if (ap.Equals(value))
-                return Ok("same");
-            ap.Date = value.Date;
-            ap.Time = value.Time;
-            ap.Room = value.Room;
-            ap.Worker = value.Worker;
-            ap.Client = value.Client;
-            ap.Duration = value.Duration;
-            ap.FirstAid = value.FirstAid;
-            return Ok("The object has been successfully updated");
+            Task<bool> b = _appointmentService.Put(id, value);
+            if (b.IsCompletedSuccessfully)
+                return Ok("The object has been successfully updated");
+            else
+                return NotFound("The object was not found or could not be updated");
         }
 
         // DELETE api/<AppointmentController>/5
-        [HttpDelete("{code}")]
-        public ActionResult Delete(int code)
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
         {
-            var ap = _context.Appointments.Find(c => c.Code == code);
-            if (ap == null)
-                return NotFound();
-            return Ok("The object was successfully deleted");
-        }*/
+            Task<bool> b = _appointmentService.Delete(id);
+            if (b.IsCompletedSuccessfully)
+                return Ok("The object has been successfully deleted");
+            return NotFound("The object was not found or could not be deleted");
+        }
+
     }
 }

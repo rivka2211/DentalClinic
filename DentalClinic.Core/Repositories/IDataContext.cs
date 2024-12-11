@@ -14,5 +14,7 @@ namespace DentalClinic.Core.Repositories
         DbSet<Room> Rooms { get; set; }
         DbSet<Worker> Workers { get; set; }
         DbSet<Appointment> Appointments { get; set; }
+
+        
     }
 }

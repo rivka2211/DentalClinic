@@ -1,10 +1,12 @@
-﻿namespace DentalClinic.Core.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DentalClinic.Core.Entities
 {
     public class Appointment
     {
-        private static int key = 100;
-
-        public int Code { get; }
+        //private static int key = 100;
+        [Key]
+        public int Id { get; set; }
         public DateOnly Date { get; set; }
         public TimeOnly Time { get; set; }
         public Worker Worker { get; set; }
@@ -18,9 +20,9 @@
 
         }
 
-        public Appointment(DateOnly date, TimeOnly time, Worker worker, Client client, Room room, int duration = 30, bool firstAid = false)
+        public Appointment(int id, DateOnly date, TimeOnly time, Worker worker, Client client, Room room, int duration = 30, bool firstAid = false)
         {
-            Code = key++;
+            Id = id;
             Date = date;
             Time = time;
             Room = room;

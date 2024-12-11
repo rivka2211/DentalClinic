@@ -15,6 +15,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IWorkerService, WorkerService>();
+builder.Services.AddScoped<IWorkerRepository, WorkerRepository>();
 builder.Services.AddDbContext<IDataContext,DataContext>();
 //builder.Services.AddSingleton< DataContext>();
 

@@ -12,5 +12,11 @@ namespace DentalClinic.Core.Repositories
     {
         DbSet<Worker> GetAll();
 
+        IEnumerable<Worker> GetById(int Id);
+        IEnumerable<Worker> GetByProfession(ProfessionsEnum profession);
+        Task<bool> Post(Worker Worker);
+        Task<bool> Put(int Id, Worker Worker);
+        Task<bool> Delete(int Id);
+
     }
 }
